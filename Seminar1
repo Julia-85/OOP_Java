@@ -1,0 +1,62 @@
+//1. Создать наследника реализованного класса ГорячийНапиток с дополнительным полем int температура.
+//2. Создать класс ГорячихНапитковАвтомат реализующий интерфейс ТорговыйАвтомат и реализовать перегруженный метод getProduct(int name, int volume, int temperature), выдающий продукт соответствующий имени, объёму и температуре
+//3. В main проинициализировать несколько ГорячихНапитков и ГорячихНапитковАвтомат и воспроизвести логику, заложенную в программе
+//4. Всё вышеуказанное создать согласно принципам ООП, пройденным на семинаре
+
+public class HotDrink {
+    private String name;
+    private int volume;
+
+    public HotDrink(String name, int volume){
+        this.name = name;
+        this.volume = volume;
+    }
+
+    public String getInfo() {
+        return name + "," + volume + "мл";
+    }
+}
+
+public class HotDrinkWithTemp extends HotDrink {
+    private int temperature;
+    public HotDrinkWithTemp (String name, int volume, int temperature) {
+        super(name, volume);
+        this.temperature = temperature;
+    }
+    @Override
+    public String getInfo () {
+        return super.getInfo() + "," + temperature + "градусов";
+    }
+}
+
+public interface VendingMachine {
+    public  HotDrink
+    getProduct ( String name, int volume);
+}
+
+public class HotDrinkVendingMachine implements VendingMachine {
+    public  HotDrinkVendingMachine() {
+
+    }
+    public HotDrink getProduct ( String name, int volume, int temperature) {
+        return new HotDrinkWithTemp( name, volume, temperature);
+    }
+    public  HotDrink getProduct ( String name, int volume) {
+        return new HotDrink(name,volume);
+    }
+}
+
+public class Main {
+    public static void main (String[] args) {
+        HotDrink tea= new HotDrink("Чай", 200);
+        HotDrink coffee = new HotDrink("Кофе", 150);
+        HotDrinkVendingMachine vendingMachine = new HotDrinkVendingMachine();
+        HotDrink coffeeFromMachine = vendingMachine. getProduct("Чай", 200);
+        HotDrink teaFromMachine = vendingMachine. getProduct("Кофе", 150);
+        HotDrink cocoaFromMachine = vendingMachine. getProduct("Какао", 300, 70);
+
+        System.out.println(teaFromMachine.getInfo());
+        System.out.println(coffeeFromMachine.getInfo());
+        System.out.println( cocoaFromMachine.getInfo());
+    }
+}
