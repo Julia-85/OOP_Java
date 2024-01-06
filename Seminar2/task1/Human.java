@@ -1,4 +1,4 @@
-package HW2_29_05_2023.task1;
+package Seminar2.task1;
 
 public class Human extends Actor {
 
